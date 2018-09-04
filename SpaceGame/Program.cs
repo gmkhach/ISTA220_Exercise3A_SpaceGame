@@ -120,6 +120,6 @@ namespace SpaceGame
                     Console.WriteLine(ex.Message);
                 }
             } while (keepLooping);
-        }
+        } 
     }
 }
