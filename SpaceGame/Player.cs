@@ -271,45 +271,53 @@ namespace SpaceGame
 
                     // building a menu list for planets that can be traveled to
                     string menuList = "\n";
-                    for (int i = 0; i < destinationList.Count(); i++)
+                    if (destinationList.Count() != 0)
                     {
-                        menuList += $"{i + 1}. {destinationList[i].GetName()}";
-                        if (((i + 1) % 5 != 0) || (i == 0))
-                        { menuList += " \t"; }
-                        else
-                        { menuList += "\n"; }
-                    }
-
-                    Console.Write($"\nWhere would you like to travel to:\n" + menuList + "\n\n>>> ");
-                    MenuSelection selection = new MenuSelection(Console.ReadLine().Trim());
-                    if (Enumerable.Range(1, destinationList.Count()).Contains(selection.GetSelection()))
-                    {
-
-                        // initializing destination coordinates
-                        to = destinationList[selection.GetSelection() - 1].GetCoordinates();
-
-                        Planet destination = destinationList[selection.GetSelection() - 1];
-                        // Calculating the distance and time traveled
-                        distance = GetDistance(from, to);
-                        travelTime = GetTimeElapsed(distance, GetShip().GetSpeed());
-                        // Updates the user's travel time
-                        SetTravelTime(travelTime);
-                        // Checks to total time elapsed
-                        if (GetTravelTime() >= 40)
+                        for (int i = 0; i < destinationList.Count(); i++)
                         {
-                            Utilities.EndGameReport(this);
-                            Environment.Exit(-1);
+                            menuList += $"{i + 1}. {destinationList[i].GetName()}";
+                            if (((i + 1) % 5 != 0) || (i == 0))
+                            { menuList += " \t"; }
+                            else
+                            { menuList += "\n"; }
                         }
-                        // Update the fuel level. 1 fuel is used per lightyear of distance.
-                        SetFuel(-distance);
-                        // Updates the user's location
-                        SetLocation(destination);
-                        keepLooping = false;
+
+                        Console.Write($"\nWhere would you like to travel to:\n" + menuList + "\n\n>>> ");
+                        MenuSelection selection = new MenuSelection(Console.ReadLine().Trim());
+                        if (Enumerable.Range(1, destinationList.Count()).Contains(selection.GetSelection()))
+                        {
+
+                            // initializing destination coordinates
+                            to = destinationList[selection.GetSelection() - 1].GetCoordinates();
+
+                            Planet destination = destinationList[selection.GetSelection() - 1];
+                            // Calculating the distance and time traveled
+                            distance = GetDistance(from, to);
+                            travelTime = GetTimeElapsed(distance, GetShip().GetSpeed());
+                            // Updates the user's travel time
+                            SetTravelTime(travelTime);
+                            // Checks to total time elapsed
+                            if (GetTravelTime() >= 40)
+                            {
+                                Utilities.EndGameReport(this);
+                                Environment.Exit(-1);
+                            }
+                            // Update the fuel level. 1 fuel is used per lightyear of distance.
+                            SetFuel(-distance);
+                            // Updates the user's location
+                            SetLocation(destination);
+                            keepLooping = false;
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            throw new Exception("\nInvalid Entry");
+                        }
                     }
                     else
                     {
-                        Console.Clear();
-                        throw new Exception("\nInvalid Entry");
+                        Console.WriteLine("\nNo planets are reachable with the current fuel level, Buy more fuel.");
+                        keepLooping = false;
                     }
                 }
                 catch (Exception ex)
