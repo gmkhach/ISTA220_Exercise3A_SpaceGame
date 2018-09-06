@@ -18,13 +18,13 @@ namespace SpaceGame
             double y = 0.0;
             double multiplier = 0.0;
             Random rnd = new Random();
-            List<Planet>[] listOfPlanets = new List<Planet>[50];
+            List<Planet>[] listOfPlanets = new List<Planet>[100];
             List<double[]> coordinates = new List<double[]>();
             List<PlanetarySystem> universe = new List<PlanetarySystem>();
             int planetCount = 0;
 
             // Populates the univrse with 50 planetary systems, each one of which have up to 10 planets. 
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 100; i++)
             {
                 // Generating a random name for a system
                 char letter = (char)rnd.Next(65, 90);
