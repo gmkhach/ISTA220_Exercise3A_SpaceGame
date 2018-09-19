@@ -96,10 +96,14 @@ namespace SpaceGame
             bool keepLooping = true;
             do
             {
-                Console.Write("\nSelect from the following options:\n\n1. buy\n2. sell\n\n>>> ");
+                Console.Write("\nSelect from the following options:\n\n1. buy\n2. sell\n\nC: Cancel\n\n>>> ");
                 MenuSelection tradeMode = new MenuSelection(Console.ReadLine().Trim());
                 try
                 {
+                    if (tradeMode.GetSelection() ==0)
+                    {
+                        break;
+                    }
                     if (tradeMode.GetSelection() == 1)
                     {
                         myPlayer.BuyGoods(buyMenu, tradingGoods);

@@ -21,6 +21,10 @@ namespace SpaceGame
                 {
                     selection = int.Parse(inputString);
                 }
+                else if (inputString == "C" || inputString == "c")
+                {
+                    selection = 0;
+                }
                 else
                 {
                     throw new Exception("\nInvalid Entry");
