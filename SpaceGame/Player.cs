@@ -282,9 +282,13 @@ namespace SpaceGame
                             { menuList += "\n"; }
                         }
 
-                        Console.Write($"\nWhere would you like to travel to:\n" + menuList + "\n\n>>> ");
+                        Console.Write($"\nWhere would you like to travel to:\n" + menuList + "\n\nC: Cancel\n\n>>> ");
                         MenuSelection selection = new MenuSelection(Console.ReadLine().Trim());
-                        if (Enumerable.Range(1, destinationList.Count()).Contains(selection.GetSelection()))
+                        if (selection.GetSelection() == 0)
+                        {
+                            break;
+                        }
+                        else if (Enumerable.Range(1, destinationList.Count()).Contains(selection.GetSelection()))
                         {
 
                             // initializing destination coordinates

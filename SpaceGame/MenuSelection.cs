@@ -36,7 +36,7 @@ namespace SpaceGame
             }
         }
 
-        private int selection;
+        private int selection = -1;
 
         public int GetSelection() => selection;
 

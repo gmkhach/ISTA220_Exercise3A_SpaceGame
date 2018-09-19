@@ -97,18 +97,18 @@ namespace SpaceGame
             do
             {
                 Console.Write("\nSelect from the following options:\n\n1. buy\n2. sell\n\nC: Cancel\n\n>>> ");
-                MenuSelection tradeMode = new MenuSelection(Console.ReadLine().Trim());
+                MenuSelection selection = new MenuSelection(Console.ReadLine().Trim());
                 try
                 {
-                    if (tradeMode.GetSelection() ==0)
+                    if (selection.GetSelection() == 0)
                     {
                         break;
                     }
-                    if (tradeMode.GetSelection() == 1)
+                    else if (selection.GetSelection() == 1)
                     {
                         myPlayer.BuyGoods(buyMenu, tradingGoods);
                     }
-                    else if (tradeMode.GetSelection() == 2)
+                    else if (selection.GetSelection() == 2)
                     {
                         myPlayer.SellGoods(sellMenu, tradingGoods);
                     }
