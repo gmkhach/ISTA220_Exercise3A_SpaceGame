@@ -134,12 +134,20 @@ namespace SpaceGame
                     {
                         Console.Write(buyMenu);
                         MenuSelection selection = new MenuSelection(Console.ReadLine().Trim());
-                         if (Enumerable.Range(1, 10).Contains(selection.GetSelection()))
+                        if (selection.GetSelection() == 0)
                         {
-                            Console.Write("\nHow many units would you like to buy?\n\n>>> ");
+                            break;
+                        }
+                        else if (Enumerable.Range(1, 10).Contains(selection.GetSelection()))
+                        {
+                            Console.Write("\nHow many units would you like to buy?\n\nC: Cancel\n\n>>> ");
                             MenuSelection quantity = new MenuSelection(Console.ReadLine().Trim());
                             // Checks if there is enough room in the ship's cargo bay 
-                            if (GetCargo().Count() + quantity.GetSelection() <= GetShip().GetCargoCapacity())
+                            if (quantity.GetSelection() == 0)
+                            {
+                                break;
+                            }
+                            else if (GetCargo().Count() + quantity.GetSelection() <= GetShip().GetCargoCapacity())
                             {
                                 if (GetWallet() >= quantity.GetSelection() * tradingGoods[selection.GetSelection() - 1].GetPrice())
                                 {
@@ -192,7 +200,11 @@ namespace SpaceGame
                 {
                     Console.Write(sellMenu);
                     MenuSelection selection = new MenuSelection(Console.ReadLine().Trim());
-                    if (Enumerable.Range(1, 10).Contains(selection.GetSelection()))
+                    if (selection.GetSelection() == 0)
+                    {
+                        break;
+                    }
+                    else if (Enumerable.Range(1, 10).Contains(selection.GetSelection()))
                     {
                         // Counts how many of selected items does the user have in his cargo
                         int count = 0;
@@ -205,9 +217,12 @@ namespace SpaceGame
                         }
                         if (count > 0)
                         {
-                            Console.Write("\nHow many units would you like to sell?\n\n>>> ");
+                            Console.Write("\nHow many units would you like to sell?\n\nC: Cancel\n\n>>> ");
                             MenuSelection quantity = new MenuSelection(Console.ReadLine().Trim());
-
+                            if (quantity.GetSelection() ==0)
+                            {
+                                break;
+                            }
                             if (quantity.GetSelection() <= count)
                             {
                                 // removes the sold item from the user's cargo
@@ -346,9 +361,13 @@ namespace SpaceGame
                         $"\n1. {modelNames[0]}\t\t10,000 credits" +
                         $"\n2. {modelNames[1]}\t\t25,000 credits" +
                         $"\n3. {modelNames[2]}\t50,000 credits" +
-                        $"\n4. {modelNames[3]}\t\t100,000 credits\n\n>>> ");
+                        $"\n4. {modelNames[3]}\t\t100,000 credits\n\nC: Cancel\n\n>>> ");
                     MenuSelection selection = new MenuSelection(Console.ReadLine().Trim());
-                    if (Enumerable.Range(1, 4).Contains(selection.GetSelection()))
+                    if (selection.GetSelection() == 0)
+                    {
+                        break;
+                    }
+                    else if (Enumerable.Range(1, 4).Contains(selection.GetSelection()))
                     {
                         model = modelNames[selection.GetSelection() - 1];
                         Ship newShip = new Ship(model);
@@ -391,9 +410,13 @@ namespace SpaceGame
                     Console.WriteLine($"\nFuel Level:\t\t{fuelLevel} tons" +
                                       $"\nTank Capacity:\t\t{tank} tons" +
                                       $"\nFuel Price:\t\t{fuelPrice} credits per ton");
-                    Console.Write("\nHow many tons of fuel do you wish to buy?\n\n>>> ");
+                    Console.Write("\nHow many tons of fuel do you wish to buy?\n\nC: Cancel\n\n>>> ");
                     MenuSelection selection = new MenuSelection(Console.ReadLine().Trim());
-                    if (selection.GetSelection() >= 0 && selection.GetSelection() <= tank - fuelLevel)
+                    if (selection.GetSelection() == 0)
+                    {
+                        break;
+                    }
+                    else if (selection.GetSelection() > 0 && selection.GetSelection() <= tank - fuelLevel)
                     {
                         if (this.GetWallet() >= selection.GetSelection() * fuelPrice)
                         {
